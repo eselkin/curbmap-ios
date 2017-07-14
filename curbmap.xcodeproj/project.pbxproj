@@ -14,6 +14,7 @@
 		D5D906FB1F19447B000EC8C9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D906F91F19447B000EC8C9 /* LaunchScreen.storyboard */; };
 		D5D907061F19447B000EC8C9 /* curbmapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D907051F19447B000EC8C9 /* curbmapTests.swift */; };
 		D5D907111F19447B000EC8C9 /* curbmapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D907101F19447B000EC8C9 /* curbmapUITests.swift */; };
+		D5D9071F1F19487A000EC8C9 /* ViewControllerMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9071E1F19487A000EC8C9 /* ViewControllerMap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		D5D9070C1F19447B000EC8C9 /* curbmapUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = curbmapUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D907101F19447B000EC8C9 /* curbmapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = curbmapUITests.swift; sourceTree = "<group>"; };
 		D5D907121F19447B000EC8C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D5D9071E1F19487A000EC8C9 /* ViewControllerMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerMap.swift; path = Map/ViewControllerMap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				D5D906F71F19447B000EC8C9 /* Assets.xcassets */,
 				D5D906F91F19447B000EC8C9 /* LaunchScreen.storyboard */,
 				D5D906FC1F19447B000EC8C9 /* Info.plist */,
+				D5D9071E1F19487A000EC8C9 /* ViewControllerMap.swift */,
 			);
 			path = curbmap;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 			files = (
 				D5D906F31F19447B000EC8C9 /* ViewController.swift in Sources */,
 				D5D906F11F19447B000EC8C9 /* AppDelegate.swift in Sources */,
+				D5D9071F1F19487A000EC8C9 /* ViewControllerMap.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
