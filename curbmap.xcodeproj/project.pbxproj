@@ -15,6 +15,10 @@
 		D5D907061F19447B000EC8C9 /* curbmapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D907051F19447B000EC8C9 /* curbmapTests.swift */; };
 		D5D907111F19447B000EC8C9 /* curbmapUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D907101F19447B000EC8C9 /* curbmapUITests.swift */; };
 		D5D9071F1F19487A000EC8C9 /* ViewControllerMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D9071E1F19487A000EC8C9 /* ViewControllerMap.swift */; };
+		D5D907221F195AE0000EC8C9 /* PolyLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D907211F195AE0000EC8C9 /* PolyLine.swift */; };
+		D5D907241F195D49000EC8C9 /* MapMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D907231F195D49000EC8C9 /* MapMarker.swift */; };
+		D5D907261F195E4B000EC8C9 /* Restriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D907251F195E4B000EC8C9 /* Restriction.swift */; };
+		D5D9072A1F19601A000EC8C9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D907291F19601A000EC8C9 /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +53,10 @@
 		D5D907101F19447B000EC8C9 /* curbmapUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = curbmapUITests.swift; sourceTree = "<group>"; };
 		D5D907121F19447B000EC8C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D5D9071E1F19487A000EC8C9 /* ViewControllerMap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerMap.swift; path = Map/ViewControllerMap.swift; sourceTree = "<group>"; };
+		D5D907211F195AE0000EC8C9 /* PolyLine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PolyLine.swift; path = Map/PolyLine.swift; sourceTree = "<group>"; };
+		D5D907231F195D49000EC8C9 /* MapMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MapMarker.swift; path = Map/MapMarker.swift; sourceTree = "<group>"; };
+		D5D907251F195E4B000EC8C9 /* Restriction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Restriction.swift; path = Restriciton/Restriction.swift; sourceTree = "<group>"; };
+		D5D907291F19601A000EC8C9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,13 +107,15 @@
 		D5D906EF1F19447B000EC8C9 /* curbmap */ = {
 			isa = PBXGroup;
 			children = (
+				D5D907281F19600B000EC8C9 /* User */,
+				D5D907271F195E53000EC8C9 /* Restriction */,
+				D5D907201F194E32000EC8C9 /* Map */,
 				D5D906F01F19447B000EC8C9 /* AppDelegate.swift */,
 				D5D906F21F19447B000EC8C9 /* ViewController.swift */,
 				D5D906F41F19447B000EC8C9 /* Main.storyboard */,
 				D5D906F71F19447B000EC8C9 /* Assets.xcassets */,
 				D5D906F91F19447B000EC8C9 /* LaunchScreen.storyboard */,
 				D5D906FC1F19447B000EC8C9 /* Info.plist */,
-				D5D9071E1F19487A000EC8C9 /* ViewControllerMap.swift */,
 			);
 			path = curbmap;
 			sourceTree = "<group>";
@@ -126,6 +136,32 @@
 				D5D907121F19447B000EC8C9 /* Info.plist */,
 			);
 			path = curbmapUITests;
+			sourceTree = "<group>";
+		};
+		D5D907201F194E32000EC8C9 /* Map */ = {
+			isa = PBXGroup;
+			children = (
+				D5D9071E1F19487A000EC8C9 /* ViewControllerMap.swift */,
+				D5D907231F195D49000EC8C9 /* MapMarker.swift */,
+				D5D907211F195AE0000EC8C9 /* PolyLine.swift */,
+			);
+			name = Map;
+			sourceTree = "<group>";
+		};
+		D5D907271F195E53000EC8C9 /* Restriction */ = {
+			isa = PBXGroup;
+			children = (
+				D5D907251F195E4B000EC8C9 /* Restriction.swift */,
+			);
+			name = Restriction;
+			sourceTree = "<group>";
+		};
+		D5D907281F19600B000EC8C9 /* User */ = {
+			isa = PBXGroup;
+			children = (
+				D5D907291F19601A000EC8C9 /* User.swift */,
+			);
+			name = User;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +232,7 @@
 				TargetAttributes = {
 					D5D906EC1F19447B000EC8C9 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = CNKFCAS44G;
 						ProvisioningStyle = Automatic;
 					};
 					D5D907001F19447B000EC8C9 = {
@@ -262,9 +299,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5D907241F195D49000EC8C9 /* MapMarker.swift in Sources */,
 				D5D906F31F19447B000EC8C9 /* ViewController.swift in Sources */,
+				D5D907221F195AE0000EC8C9 /* PolyLine.swift in Sources */,
 				D5D906F11F19447B000EC8C9 /* AppDelegate.swift in Sources */,
+				D5D907261F195E4B000EC8C9 /* Restriction.swift in Sources */,
 				D5D9071F1F19487A000EC8C9 /* ViewControllerMap.swift in Sources */,
+				D5D9072A1F19601A000EC8C9 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -418,6 +459,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = CNKFCAS44G;
 				INFOPLIST_FILE = curbmap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.curbmap.curbmap;
@@ -430,6 +472,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = CNKFCAS44G;
 				INFOPLIST_FILE = curbmap/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.curbmap.curbmap;

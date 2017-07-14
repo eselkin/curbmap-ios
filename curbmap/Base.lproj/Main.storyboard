@@ -54,24 +54,45 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="25Y-hw-md4">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                             </mapView>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="ahn-ZT-AHf">
+                                <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="0Am-8g-mNp" id="Zia-aJ-q96"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="25Y-hw-md4" firstAttribute="bottom" secondItem="nzL-UM-bzw" secondAttribute="top" id="KIg-1f-BSd"/>
-                            <constraint firstAttribute="trailing" secondItem="25Y-hw-md4" secondAttribute="trailing" id="Xom-xn-pX6"/>
-                            <constraint firstItem="25Y-hw-md4" firstAttribute="leading" secondItem="IhP-r5-XFi" secondAttribute="leading" id="qTk-pl-rb4"/>
-                            <constraint firstItem="25Y-hw-md4" firstAttribute="top" secondItem="IhP-r5-XFi" secondAttribute="top" id="yoV-ne-GpV"/>
+                            <constraint firstItem="25Y-hw-md4" firstAttribute="trailing" secondItem="ahn-ZT-AHf" secondAttribute="trailing" id="SOs-NY-GaZ"/>
+                            <constraint firstAttribute="trailing" secondItem="25Y-hw-md4" secondAttribute="trailing" id="eNF-c2-y3Z"/>
+                            <constraint firstItem="25Y-hw-md4" firstAttribute="leading" secondItem="ahn-ZT-AHf" secondAttribute="leading" id="f3w-9S-512"/>
+                            <constraint firstItem="ahn-ZT-AHf" firstAttribute="top" secondItem="25Y-hw-md4" secondAttribute="bottom" id="ft3-RW-6ym"/>
+                            <constraint firstItem="ahn-ZT-AHf" firstAttribute="bottom" secondItem="nzL-UM-bzw" secondAttribute="top" id="jdp-C1-h4R"/>
+                            <constraint firstItem="25Y-hw-md4" firstAttribute="top" secondItem="IhP-r5-XFi" secondAttribute="top" id="p8o-6E-Abl"/>
+                            <constraint firstItem="25Y-hw-md4" firstAttribute="leading" secondItem="IhP-r5-XFi" secondAttribute="leading" id="wzE-91-FUF"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="mapView" destination="25Y-hw-md4" id="QmB-0H-Z35"/>
+                        <outlet property="searchBar" destination="ahn-ZT-AHf" id="2oK-Bz-FJB"/>
+                        <outlet property="searchDisplayController" destination="sK3-0Y-bAQ" id="Mtj-W9-99R"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NO8-Ha-TBT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="sK3-0Y-bAQ">
+                    <connections>
+                        <outlet property="delegate" destination="0Am-8g-mNp" id="5xz-PH-JoN"/>
+                        <outlet property="searchBar" destination="ahn-ZT-AHf" id="tmx-OM-ODf"/>
+                        <outlet property="searchContentsController" destination="0Am-8g-mNp" id="MEp-4p-tE8"/>
+                        <outlet property="searchResultsDataSource" destination="0Am-8g-mNp" id="JVE-tf-sgk"/>
+                        <outlet property="searchResultsDelegate" destination="0Am-8g-mNp" id="VCz-Ie-f6b"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="712.79999999999995" y="-546.47676161919048"/>
+            <point key="canvasLocation" x="848.79999999999995" y="36.431784107946029"/>
         </scene>
     </scenes>
 </document>

@@ -13,6 +13,7 @@ class ViewControllerMap: UIViewController {
     let initialLocation = CLLocation(latitude: 34, longitude: -118)
     let regionRadius: CLLocationDistance = 2000
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
     
     func centerMapOnLocation(location: CLLocation) {
