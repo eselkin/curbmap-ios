@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "417565998CA5F27B297D002A049EE47BF07241CA",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "417565998CA5F27B297D002A049EE47BF07241CA" : 9223372036854775807,
+    "F5E1B9905A6F5EFEFA358F2F8FDEAEBE51AF4A80" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "70AB99A5-4FAF-47A9-B918-BF4AD7B66857",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "417565998CA5F27B297D002A049EE47BF07241CA" : "curbmap\/",
+    "F5E1B9905A6F5EFEFA358F2F8FDEAEBE51AF4A80" : "..\/curbmap.com"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "curbmap",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "curbmap.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:curbmap\/curbmap-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "417565998CA5F27B297D002A049EE47BF07241CA"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:curbmap\/curbmap.com.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F5E1B9905A6F5EFEFA358F2F8FDEAEBE51AF4A80"
+    }
+  ]
+}
