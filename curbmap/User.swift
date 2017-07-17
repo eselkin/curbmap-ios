@@ -65,9 +65,11 @@ class User {
             "username": self.username,
             "password": self.password
         ]
+        
         let headers = [
             "Content-Type": "application/x-www-form-urlencoded"
         ]
+        
         var full_dictionary: [String: Any] = ["success": false]
         Alamofire.request("https://curbmap.com/login", method: .post, parameters: parameters, headers: headers).responseJSON { [weak self] response in
             guard let strongSelf = self else { return }
