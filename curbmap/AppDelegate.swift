@@ -7,11 +7,13 @@
 //
 
 import UIKit
+import KeychainAccess
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    var user: User?
-    
+    let user: User = User(username: "curbmaptest", password: "TestCurbm@p1")
+    let keychain = Keychain(service: "com.curbmap.keys")
+
     var window: UIWindow?
 
 
@@ -36,6 +38,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        do {
+            let username_token = try keychain.get("user_curbmap")
+            if (username_token != nil) {
+                let password_token = try keychain.get("pass_curbmap")
+                if (password_token != nil) {
+                    user.set_username(username: username_token!)
+                    user.set_password(password: password_token!)
+                    user.set_remember(remember: true)
+                    
+                }
+            }
+        } catch _ {
+            print("cannot get username")
+        }
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

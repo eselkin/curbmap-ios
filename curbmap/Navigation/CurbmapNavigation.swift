@@ -33,10 +33,17 @@ class CurbmapNavigation: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
         let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
+        let storyboard = self.storyboard
         selectedCell.backgroundColor =  UIColor(displayP3Red: 0.7, green: 0.3, blue: 0.3, alpha: 0.6)
         if (indexPath.section == 0 && indexPath.row == 0) {
-            performSegue(withIdentifier: "ViewControllerMap", sender: selectedCell)
+             let VCMap = storyboard?.instantiateViewController(withIdentifier: "ViewControllerMap")
+            navigationController?.pushViewController(VCMap!, animated: true)
+        } else if (indexPath.section == 2 && indexPath.row == 0 && !appDelegate.user.isLoggedIn()) {
+            let VCLogin = storyboard?.instantiateViewController(withIdentifier: "ViewControllerLogin")
+            self.navigationController?.pushViewController(VCLogin!, animated: true)
         }
     }
     
@@ -56,7 +63,7 @@ class CurbmapNavigation: UITableViewController{
             return "got questions about us?"
         } else {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            if (appDelegate.user != nil && appDelegate.user!.isLoggedIn()) {
+            if (appDelegate.user.get_username() != "curbmapuser" && appDelegate.user.isLoggedIn()) {
                 return "Settings"
             } else {
                 return "Get the most out of the app"
@@ -80,9 +87,11 @@ class CurbmapNavigation: UITableViewController{
             cell.textLabel?.text = "About"
         } else {
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            if (appDelegate.user != nil && appDelegate.user!.isLoggedIn()) {
+            if (appDelegate.user.isLoggedIn()) {
+                print("here")
                     cell.textLabel?.text = "Settings"
             } else {
+                print("not there")
                 cell.textLabel?.text = "Login"
             }
         }

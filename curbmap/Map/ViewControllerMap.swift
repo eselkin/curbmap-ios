@@ -1,4 +1,4 @@
-//
+///Users/eliselkin/Documents/workspace/curbmap/curbmap-ios/curbmap/curbmap.xcodeproj
 //  ViewControllerMap.swift
 //  curbmap
 //
@@ -11,9 +11,10 @@ import MapKit
 
 class ViewControllerMap: UIViewController, CLLocationManagerDelegate  {
     var locationManager: CLLocationManager!
-    
+    var userHeading: CLLocationDirection?
     let regionRadius: CLLocationDistance = 2000
     
+    @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
     
@@ -22,29 +23,35 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate  {
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.mapView.setUserTrackingMode(MKUserTrackingMode.followWithHeading, animated: true)
-        self.mapView.showsCompass = true
         self.locationManager = CLLocationManager()
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        let bbi = MKUserTrackingBarButtonItem(mapView:self.mapView)
+        self.toolbar.barStyle = .blackOpaque
+        self.toolbar.setItems([bbi], animated: true)
         self.locationManager.delegate = self
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         self.locationManager.startUpdatingHeading()
-        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
     }
     
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-        print(status.rawValue)
-        if status == .authorizedAlways {
+        if status == .authorizedWhenInUse {
             if CLLocationManager.isMonitoringAvailable(for: CLBeaconRegion.self) {
                 if CLLocationManager.isRangingAvailable() {
                     // do stuff
-                    print("auth given")
                     self.locationManager.startUpdatingHeading()
                     centerMapOnLocation(location: self.locationManager.location!)
                 }
             }
         }
     }
-
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+        if newHeading.headingAccuracy < 0 { return }
+        let heading = newHeading.trueHeading > 0 ? newHeading.trueHeading : newHeading.magneticHeading
+        userHeading = heading
+    }
 }
