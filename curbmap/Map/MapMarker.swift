@@ -10,12 +10,10 @@ import Foundation
 import MapKit
 
 class MapMarker: NSObject, MKAnnotation {
-    let coordinate: CLLocationCoordinate2D
-    let restrictions: [Restriction]
-    let inEffect: Bool
-    init(coordinate: CLLocationCoordinate2D, restrictions: [Restriction], inEffect: Bool){
+    var coordinate: CLLocationCoordinate2D
+    var restrictions: [Restriction]!
+    var inEffect: Bool!
+    init(coordinate: CLLocationCoordinate2D){
         self.coordinate = coordinate
-        self.restrictions = restrictions
-        self.inEffect = inEffect
     }
 }

@@ -18,11 +18,18 @@ class User {
     var score: Int64
     var badge: String
     var pointsAdded: [MapMarker]
+    var pointsToRemove: [String: [Restriction]]
+    var pointsToUpdate: [String: [Restriction]]
+    // var linesAdded: [MapLinesMarker]
+    var linesToRemove: [String: [Restriction]]
     init(username: String, password: String) {
         self.username = username
         self.password = password
         self.loggedIn = false
         self.pointsAdded = []
+        self.pointsToRemove = [:]
+        self.pointsToUpdate = [:]
+        self.linesToRemove = [:]
         self.badge = "beginner"
         self.score = 0
         self.session = ""

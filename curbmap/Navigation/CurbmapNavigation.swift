@@ -11,7 +11,10 @@ import CoreLocation
 
 class CurbmapNavigation: UITableViewController{
     let backgroundImage = UIImage(named: "curb.jpg")
-    
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var SwiftTimer: Timer = Timer()
+    var notLoggedIn = true
+
     override func viewWillAppear(_ animated: Bool) {
         let imageView = UIImageView(image: backgroundImage)
         self.tableView.backgroundView = imageView
@@ -19,6 +22,7 @@ class CurbmapNavigation: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        SwiftTimer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(updateCounter), userInfo:nil, repeats: true)
     }
     
     override func didReceiveMemoryWarning() {
@@ -33,8 +37,7 @@ class CurbmapNavigation: UITableViewController{
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
+        
         let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
         let storyboard = self.storyboard
         selectedCell.backgroundColor =  UIColor(displayP3Red: 0.7, green: 0.3, blue: 0.3, alpha: 0.6)
@@ -74,7 +77,13 @@ class CurbmapNavigation: UITableViewController{
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 75.0
     }
-    
+    func updateCounter() {
+        if (self.notLoggedIn && appDelegate.user.isLoggedIn()) {
+            self.notLoggedIn = false
+            self.tableView.reloadData()
+        }
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell
         cell = tableView.dequeueReusableCell(withIdentifier: "curbmapNavigationCell", for: indexPath)
@@ -86,12 +95,12 @@ class CurbmapNavigation: UITableViewController{
         } else if(indexPath.section == 1) {
             cell.textLabel?.text = "About"
         } else {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
             if (appDelegate.user.isLoggedIn()) {
                 print("here")
                     cell.textLabel?.text = "Settings"
             } else {
                 print("not there")
+                notLoggedIn = true
                 cell.textLabel?.text = "Login"
             }
         }

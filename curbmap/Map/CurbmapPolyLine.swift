@@ -9,7 +9,7 @@
 import Foundation
 import MapKit
 
-class PolyLine: MKPolyline {
+class CurbmapPolyLine: MKPolyline {
     let coordinates: [CLLocationCoordinate2D]
     let color: String
     let restrictions: [Restriction]

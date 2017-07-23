@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import KeychainAccess
 
 class ViewControllerLogin: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
@@ -20,6 +21,8 @@ class ViewControllerLogin: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var remember: UISwitch!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var username: UITextField!
+    let keychain = Keychain(service: "com.curbmap.keys")
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,6 +38,7 @@ class ViewControllerLogin: UIViewController, UITextFieldDelegate {
         self.password.delegate = self
         // Do any additional setup after loading the view.
     }
+    
     func keyboardWillShow(notification:NSNotification){
         //give room at the bottom of the scroll view, so it doesn't cover up anything the user needs to tap
         var userInfo = notification.userInfo!
@@ -54,6 +58,14 @@ class ViewControllerLogin: UIViewController, UITextFieldDelegate {
             if let navController = self.navigationController {
                 navController.popViewController(animated: true)
                 let topController = navController.topViewController as! CurbmapNavigation
+                if (remember.isOn == true) {
+                    do {
+                        try keychain.accessibility(.whenUnlockedThisDeviceOnly).set(username.text!, key: "user_curbmap")
+                        try keychain.accessibility(.whenUnlockedThisDeviceOnly).set(password.text!, key: "pass_curbmap")
+                    } catch _ {
+                        print("cannot get username")
+                    }
+                }
                 topController.tableView.reloadData()
             }
         }
