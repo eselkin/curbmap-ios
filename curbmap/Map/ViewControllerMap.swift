@@ -8,11 +8,12 @@
 
 import UIKit
 import MapKit
+import Alamofire
 
 class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewDelegate, UISearchBarDelegate  {
     var locationManager: CLLocationManager!
     var userHeading: CLLocationDirection?
-    var regionRadius: CLLocationDistance = 2000
+    var regionRadius: CLLocationDistance = 1400
     var tempGestureRecognizers: [UIGestureRecognizer] = []
     var constraints_scrollview_h: [NSLayoutConstraint]!
     var constraints_scrollview_v: [NSLayoutConstraint]!
@@ -35,30 +36,79 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var pointStarted: CLLocationCoordinate2D?
     var lineOfPoints: [CLLocationCoordinate2D] = []
     var zoomBefore: Double?
-    var geodesic: MKPolyline?
+    var geodesic: CurbmapPolyLine?
     var addPointLongPressGesture: UILongPressGestureRecognizer!
     var addLinesLongPressGesture: UILongPressGestureRecognizer!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var linesToDraw: [CurbmapPolyLine] = []
+    var pointsToDraw: [MapMarker] = []
+    var addingPoint: CLLocationCoordinate2D?
     lazy var geocoder = CLGeocoder()
     
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius * 2.0, regionRadius * 2.0)
         mapView.setRegion(coordinateRegion, animated: true)
     }
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let topLeft = mapView.convert(CGPoint.zero, toCoordinateFrom: mapView)
+        let bottomRight = mapView.convert(CGPoint(x: mapView.frame.width, y: mapView.frame.height), toCoordinateFrom: mapView)
+        let headers = [
+            "session": appDelegate.user.get_session(),
+            "username": appDelegate.user.get_username()
+        ]
+        let parameters = [
+            "lat1": topLeft.latitude,
+            "lng1": topLeft.longitude,
+            "lat2": bottomRight.latitude,
+            "lng2": bottomRight.longitude
+        ]
+        Alamofire.request("https://curbmap.com:50003/areaPolygon", parameters: parameters, headers: headers).responseJSON { response in
+            self.mapView.removeOverlays(self.linesToDraw)
+            self.linesToDraw = []
+            if var json = response.result.value as? [[String: Any]] {
+                if (json.count == 0) {
+                    return
+                }
+                for dict in json {
+                    var lineCLLocation: [CLLocationCoordinate2D] = []
+                    for point in (dict["coordinates"] as! NSArray) {
+                        let pointAsArray = point as! NSArray
+                        let newPoint = CLLocationCoordinate2D(latitude: pointAsArray[1] as! Double, longitude: pointAsArray[0] as! Double)
+                        lineCLLocation.append(newPoint)
+                    }
+                    var restrs = [Restriction]()
+                    for restr in (dict["restrs"] as! NSArray) {
+                        let new_restr = restr as! NSArray
+                        let charAsBool: [Bool] = (new_restr[1] as! String).characters.map({(value: Character) -> Bool in return NSString(string: String(value)).boolValue })
+                        let restrJson = Restriction(type: new_restr[0] as! String, days: charAsBool, from: (new_restr[3] as! NSString).integerValue, to: (new_restr[4] as! NSString).integerValue, limit: (new_restr[5] as! NSString).integerValue)
+                        restrs.append(restrJson)
+                    }
+                    let line : CurbmapPolyLine = CurbmapPolyLine(coordinates: &lineCLLocation, count: lineCLLocation.count)
+                    line.restrictions = restrs
+                    self.linesToDraw.append(line)
+                }
+                self.mapView.addOverlays(self.linesToDraw)
+            }
+        }
+    }
     
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay is MKPolyline {
+        if overlay is CurbmapPolyLine {
+            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
+            let curbmapPoly = overlay as! CurbmapPolyLine
+            if (curbmapPoly.restrictions.count > 0) {
+                polylineRenderer.strokeColor = getColorForResrictions(curbmapPoly.restrictions, isPoint: false) as? UIColor
+            } else {
+                polylineRenderer.strokeColor = UIColor.blue
+            }
+            polylineRenderer.lineWidth = 3
+            return polylineRenderer
+        } else if overlay is MKPolyline {
             let polylineRenderer = MKPolylineRenderer(overlay: overlay)
             if (geodesic != nil && (overlay as! MKPolyline) == geodesic!) {
                 polylineRenderer.strokeColor = UIColor.blue
                 polylineRenderer.lineWidth = 3
                 return polylineRenderer
-            }
-        } else if overlay is CurbmapPolyLine {
-            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
-            let curbmapPoly = overlay as! CurbmapPolyLine
-            if (curbmapPoly.restrictions != nil) {
-                polylineRenderer.strokeColor = getColorForResrictions(curbmapPoly.restrictions)
             }
         }
         return MKOverlayRenderer()
@@ -82,39 +132,68 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     
-    func getColorForResrictions(_ r: [Restriction]) -> UIColor {
+    func getColorForResrictions(_ r: [Restriction], isPoint: Bool) -> Any {
         var color: UIColor = UIColor.black;
+        var colorImg: String = "blackmarker";
         for restriction in r {
             switch(restriction.type) {
                 case "hyd", "ns", "np", "rednp", "redns":
                     color = UIColor.red
+                    colorImg = "marker_red"
                     break;
                 case "whi":
                     if (color != UIColor.red) {
                         color = UIColor.white
+                        colorImg = "marker_white"
                     }
                     break;
                 case "gre":
                     if (color != UIColor.red) {
                         color = UIColor.green
+                        colorImg = "marker_green"
                     }
                     break;
                 case "dis":
                     color = UIColor.init(displayP3Red: 0.7, green: 0.7, blue: 1.0, alpha: 1.0)
+                    colorImg = "marker_blue"
                     break;
                 case "com", "yel":
                     if (color != UIColor.red){
+                        colorImg = "marker_yellow"
                         color = UIColor.yellow
+                    }
+                    break;
+                case "met":
+                    if (color != UIColor.red) {
+                        color = UIColor.magenta
+                        colorImg = "marker_magenta"
+                    }
+                    break;
+                case "ppd":
+                    if (color != UIColor.red) {
+                        color = UIColor.brown
+                        colorImg = "marker_brown"
+                    }
+                    break;
+                case "tim":
+                    if (color != UIColor.red) {
+                        color = UIColor.gray
+                        colorImg = "marker_gray"
                     }
                     break;
                 default:
                     if (color != UIColor.red){
+                        colorImg = "marker_black"
                         color = UIColor.black
                     }
                     break;
             }
         }
-        return color
+        if (isPoint) {
+            return colorImg
+        } else {
+            return color
+        }
     }
 
     override func viewDidLoad() {
@@ -215,30 +294,71 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.mapView.isRotateEnabled = true
         self.mapView.removeGestureRecognizer(addLinesLongPressGesture)
         self.toolbar.setItems([bbi_map!, bbi_addPoint!, bbi_addLine!], animated: true)
-        let TVCAddRestriction = storyboard?.instantiateViewController(withIdentifier: "AddRestriction")
-        self.navigationController?.pushViewController(TVCAddRestriction!, animated: true)
+        let TVCAddRestriction = storyboard?.instantiateViewController(withIdentifier: "AddRestriction") as! TableViewControllerAddRestriction
+        TVCAddRestriction.isPoint = false
+        self.navigationController?.pushViewController(TVCAddRestriction, animated: true)
     }
     func addPointLongPress(gesture: UILongPressGestureRecognizer) {
-        print(gesture)
         if (gesture.state == .ended) {
             let point = gesture.location(in: self.mapView)
-            let coordinate = self.mapView.convert(point, toCoordinateFrom: self.mapView)
-            print(coordinate)
-            var annotation = MapMarker(coordinate: coordinate)
-            self.appDelegate.user.pointsAdded.append(annotation)
-            self.mapView.addAnnotation(annotation)
+            addingPoint = self.mapView.convert(point, toCoordinateFrom: self.mapView)
             let TVCAddRestriction = storyboard?.instantiateViewController(withIdentifier: "AddRestriction")
             self.navigationController?.pushViewController(TVCAddRestriction!, animated: true)
         }
     }
-    func cancel() {
+    func cancelPointRestr() {
         self.mapView.removeAnnotation(self.appDelegate.user.pointsAdded.last!)
         self.appDelegate.user.pointsAdded.removeLast()
         self.navigationController?.popViewController(animated: true)
+        self.mapView.removeGestureRecognizer(addPointLongPressGesture)
     }
-    func done() {
+    func cancelLineRestr() {
+        self.mapView.removeOverlays([self.appDelegate.user.linesAdded.last!])
+        self.appDelegate.user.linesAdded.removeLast()
+        self.navigationController?.popViewController(animated: true)
+        self.mapView.removeGestureRecognizer(addLinesLongPressGesture)
+        self.lineOfPoints = []
+        self.regionRadius = 1400
+        self.centerMapOnLocation(location: CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude))
+
+    }
+    func donePoint(r: [Restriction]) {
+        print("REALLY DONE")
+        let annotation = MapMarker(coordinate: addingPoint!)
+        self.appDelegate.user.pointsAdded.append(annotation)
+        annotation.restrictions = r
+        annotation.color = getColorForResrictions(r, isPoint: true) as! String
+        self.mapView.addAnnotation(annotation)
+        navigationController?.popViewController(animated: true)
+        // add restrictions to line or point
+    }
+    
+    func doneLine(r: [Restriction]) {
+        print ("Done with line")
+        geodesic?.restrictions = r
+        appDelegate.user.linesAdded.append(geodesic!)
+        navigationController?.popViewController(animated: true)
+        lineOfPoints = []
+        self.centerMapOnLocation(location: CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude))
         
-        
+    }
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation is MKUserLocation
+        {
+            return nil
+        }
+        var annotationView = self.mapView.dequeueReusableAnnotationView(withIdentifier: "Pin")
+        if annotationView == nil{
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "Pin")
+            annotationView?.canShowCallout = false
+        }else{
+            annotationView?.annotation = annotation
+        }
+        print(annotation)
+        if (annotation is MapMarker) {
+            annotationView?.image = UIImage(named: (annotation as! MapMarker).color)
+        }
+        return annotationView
     }
     func addLinesLongPress(gesture: UILongPressGestureRecognizer) {
         let point = gesture.location(in: self.mapView)
@@ -246,7 +366,7 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         lineOfPoints.append(converted)
         print(mapView.annotations.count)
         if (gesture.state == .ended && mapView.annotations.count == 1) {
-            var annotation = MapMarker(coordinate: lineOfPoints[0])
+            let annotation = MapMarker(coordinate: lineOfPoints[0])
             mapView.addAnnotation(annotation)
         }
         if (lineOfPoints.count == 1) {
@@ -260,7 +380,7 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
                     mapView.remove(geodesic!)
                 }
                 print(lineOfPoints)
-                geodesic = MKPolyline(coordinates: &lineOfPoints, count: lineOfPoints.count)
+                geodesic = CurbmapPolyLine(coordinates: &lineOfPoints, count: lineOfPoints.count)
                 mapView.addOverlays([geodesic!])
             }
         }
@@ -282,7 +402,7 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.mapView.isRotateEnabled = true
         self.mapView.removeGestureRecognizer(addLinesLongPressGesture)
         self.lineOfPoints = []
-        self.regionRadius = 2000
+        self.regionRadius = 1400
         self.centerMapOnLocation(location: CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude))
         if (geodesic != nil) {
             mapView.removeOverlays([geodesic!])
@@ -321,9 +441,7 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     func keyboardWillHide(notification:NSNotification){
         var contentInset:UIEdgeInsets = UIEdgeInsets.zero
-        print(self.navigationController?.navigationBar.frame.size.height)
-        
-        contentInset.top = contentInset.top + (self.navigationController?.navigationBar.frame.size.height)! + 10
+        contentInset.top = contentInset.top + (self.navigationController?.navigationBar.frame.size.height)!
         scrollView.contentInset = contentInset
         setupViews(self.portrait_oriented)
     }

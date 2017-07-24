@@ -18,6 +18,7 @@ class User {
     var score: Int64
     var badge: String
     var pointsAdded: [MapMarker]
+    var linesAdded: [CurbmapPolyLine]
     var pointsToRemove: [String: [Restriction]]
     var pointsToUpdate: [String: [Restriction]]
     // var linesAdded: [MapLinesMarker]
@@ -27,6 +28,7 @@ class User {
         self.password = password
         self.loggedIn = false
         self.pointsAdded = []
+        self.linesAdded = []
         self.pointsToRemove = [:]
         self.pointsToUpdate = [:]
         self.linesToRemove = [:]

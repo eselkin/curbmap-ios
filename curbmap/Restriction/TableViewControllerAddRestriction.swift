@@ -13,7 +13,7 @@ class TableViewControllerAddRestriction: UITableViewController {
     var restrictions = [Restriction]()
     var restrictionsSelected = [Bool]()
     let formatter = DateFormatter()
-    let isPoint: Bool = true
+    var isPoint: Bool = true
     let coordinates: [CLLocationCoordinate2D] = [CLLocationCoordinate2D]()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     let titleLookup: [String: String] = [
@@ -36,7 +36,11 @@ class TableViewControllerAddRestriction: UITableViewController {
         super.viewDidLoad()
         let count = (self.navigationController?.viewControllers.count)! - 2
         let parent = self.navigationController?.viewControllers[count] as! ViewControllerMap
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: parent, action: #selector(parent.cancel))
+        if (isPoint) {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: parent, action: #selector(parent.cancelPointRestr))
+        } else  {
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: parent, action: #selector(parent.cancelLineRestr))
+        }
         let addButtonItem = UIBarButtonItem(title: "+ add", style: .plain, target: self, action: #selector(addItem))
         self.navigationItem.rightBarButtonItems = [addButtonItem]
     }
@@ -74,9 +78,18 @@ class TableViewControllerAddRestriction: UITableViewController {
         restrictions.append(r)
         restrictionsSelected.append(false)
         self.tableView.reloadData()
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title:"Done", style: .plain, target: self, action: #selector(done))
+
+    }
+    
+    func done() {
         let count = (self.navigationController?.viewControllers.count)! - 2
-        let navPrev = self.navigationController?.viewControllers[count] as? ViewControllerMap
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(title:"Done", style: .plain, target: navPrev, action: #selector(navPrev?.done))
+        let navPrev = self.navigationController?.viewControllers[count] as! ViewControllerMap
+        if (isPoint) {
+            navPrev.donePoint(r: restrictions)
+        } else {
+            navPrev.doneLine(r: restrictions)
+        }
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
@@ -106,6 +119,7 @@ class TableViewControllerAddRestriction: UITableViewController {
                 var i = 0
                 for point in coordinates {
                     title += "lat"+String(i)+"="+String(point.latitude)+"lng"+String(i)+"="+String(point.longitude)
+                    i += 1
                 }
                 if (!appDelegate.user.linesToRemove.keys.contains(title)) {
                     appDelegate.user.linesToRemove[title] = []

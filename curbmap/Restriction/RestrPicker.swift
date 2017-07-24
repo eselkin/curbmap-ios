@@ -38,7 +38,7 @@ class RestrPicker: UIPickerView, UIPickerViewDataSource, UIPickerViewDelegate {
     }
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         let key: String = (data.keys.sorted())[row]
-        (self.parent as? pickerSubViewChanged)?.changedPickerSubview(key)
+        self.parent?.changedPickerSubview(key)
     }
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return data.keys.count
