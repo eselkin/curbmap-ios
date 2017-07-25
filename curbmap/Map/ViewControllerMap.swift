@@ -210,7 +210,7 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         addLinesLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addLinesLongPress(gesture:)))
         addPointLongPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(addPointLongPress(gesture:)))
         bbi_addRestr = UIBarButtonItem(title: " Finish ", style: .plain, target: self, action: #selector(addRestrToLine))
-        self.toolbar.barStyle = .blackOpaque
+        self.toolbar.barTintColor = UIColor.white
         self.toolbar.setItems([bbi_map!, bbi_addPoint!, bbi_addLine!], animated: true)
         self.locationManager.delegate = self
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -307,8 +307,6 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }
     }
     func cancelPointRestr() {
-        self.mapView.removeAnnotation(self.appDelegate.user.pointsAdded.last!)
-        self.appDelegate.user.pointsAdded.removeLast()
         self.navigationController?.popViewController(animated: true)
         self.mapView.removeGestureRecognizer(addPointLongPressGesture)
     }
@@ -440,7 +438,7 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     func keyboardWillHide(notification:NSNotification){
         var contentInset:UIEdgeInsets = UIEdgeInsets.zero
-        contentInset.top = contentInset.top + (self.navigationController?.navigationBar.frame.size.height)!
+        contentInset.top = contentInset.top + 44 + 20
         scrollView.contentInset = contentInset
         setupViews(self.portrait_oriented)
     }
