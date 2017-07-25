@@ -40,19 +40,22 @@ class CurbmapNavigation: UITableViewController{
         
         let selectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
         let storyboard = self.storyboard
-        selectedCell.backgroundColor =  UIColor(displayP3Red: 0.7, green: 0.3, blue: 0.3, alpha: 0.6)
-        if (indexPath.section == 0 && indexPath.row == 0) {
-             let VCMap = storyboard?.instantiateViewController(withIdentifier: "ViewControllerMap")
+        selectedCell.backgroundColor = UIColor.black
+        if (indexPath.section == 2 && indexPath.row == 0) {
+            let VCMap = storyboard?.instantiateViewController(withIdentifier: "ViewControllerMap")
             navigationController?.pushViewController(VCMap!, animated: true)
-        } else if (indexPath.section == 2 && indexPath.row == 0 && !appDelegate.user.isLoggedIn()) {
+        } else if (indexPath.section == 0 && indexPath.row == 0 && !appDelegate.user.isLoggedIn()) {
             let VCLogin = storyboard?.instantiateViewController(withIdentifier: "ViewControllerLogin")
             self.navigationController?.pushViewController(VCLogin!, animated: true)
+        } else if (indexPath.section == 0 && appDelegate.user.isLoggedIn()) {
+            let VCSettings = storyboard?.instantiateViewController(withIdentifier: "ViewControllerSettings")
+            self.navigationController?.pushViewController(VCSettings!, animated: true)
         }
     }
     
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let unSelectedCell:UITableViewCell = tableView.cellForRow(at: indexPath)!
-        unSelectedCell.backgroundColor =  UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 0.6)
+        unSelectedCell.backgroundColor =  UIColor.black
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -61,51 +64,71 @@ class CurbmapNavigation: UITableViewController{
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if (section == 0) {
-            return "go to the map..."
-        } else if (section == 1) {
-            return "got questions about us?"
-        } else {
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
             if (appDelegate.user.get_username() != "curbmapuser" && appDelegate.user.isLoggedIn()) {
                 return "Settings"
             } else {
                 return "Get the most out of the app"
             }
+            return "go to the map..."
+        } else if (section == 1) {
+            return "got questions about us?"
+        } else {
+            return "go to the map"
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 75.0
-    }
     func updateCounter() {
         if (self.notLoggedIn && appDelegate.user.isLoggedIn()) {
             self.notLoggedIn = false
             self.tableView.reloadData()
         }
     }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell: UITableViewCell
-        cell = tableView.dequeueReusableCell(withIdentifier: "curbmapNavigationCell", for: indexPath)
-        cell.backgroundColor =  UIColor(displayP3Red: 0.4, green: 0.4, blue: 0.4, alpha: 0.6)
-        cell.alpha = 0.9
-        cell.textLabel?.textColor = UIColor.white
-        if (indexPath.section == 0) {
-            cell.textLabel?.text = "Home"
-        } else if(indexPath.section == 1) {
-            cell.textLabel?.text = "About"
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if (indexPath.section == 0 && appDelegate.user.isLoggedIn()) {
+            return 120.0
         } else {
-            if (appDelegate.user.isLoggedIn()) {
-                print("here")
-                    cell.textLabel?.text = "Settings"
+            return 80.0
+        }
+    }
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell: UITableViewCell?
+        if (appDelegate.user.isLoggedIn()) {
+            if (indexPath.section == 0) {
+                print(indexPath.section)
+                tableView.register(UINib(nibName: "LoggedInTableViewCell", bundle: nil), forCellReuseIdentifier: "LoggedInCell")
+                var tempcell = tableView.dequeueReusableCell(withIdentifier: "LoggedInCell", for: indexPath) as? LoggedInTableViewCell
+                print(appDelegate.user.get_badge())
+                tempcell?.imageView?.image = UIImage(named: "badge_"+appDelegate.user.get_badge())
+                tempcell?.usernameLabel.text = appDelegate.user.get_username()
+                tempcell?.scoreLabel.text = String(appDelegate.user.get_score())
+                tempcell?.badgeLabel.text = "beginner"
+                cell = tempcell
             } else {
-                print("not there")
+                cell = tableView.dequeueReusableCell(withIdentifier: "curbmapNavigationCell", for: indexPath)
+                cell?.backgroundColor = UIColor.black
+                cell?.textLabel?.textColor = UIColor.white
+                if (indexPath.section == 1) {
+                    cell?.textLabel?.text = "About"
+                } else {
+                    cell?.textLabel?.text = "Map"
+                    notLoggedIn = false
+                }
+            }
+        } else {
+            cell = tableView.dequeueReusableCell(withIdentifier: "curbmapNavigationCell", for: indexPath)
+            cell?.backgroundColor = UIColor.black
+            cell?.textLabel?.textColor = UIColor.white
+            if (indexPath.section == 0) {
+                cell?.textLabel?.text = "Login"
+            } else if (indexPath.section == 1) {
+                cell?.textLabel?.text = "About"
+            } else {
+                cell?.textLabel?.text = "Map"
                 notLoggedIn = true
-                cell.textLabel?.text = "Login"
             }
         }
-        
-        return cell
+        return cell!
     }
     // MARK: - Navigation
 

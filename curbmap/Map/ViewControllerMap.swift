@@ -41,6 +41,7 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var addLinesLongPressGesture: UILongPressGestureRecognizer!
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     var linesToDraw: [CurbmapPolyLine] = []
+    var lineBeginning: MapMarker!
     var pointsToDraw: [MapMarker] = []
     var addingPoint: CLLocationCoordinate2D?
     lazy var geocoder = CLGeocoder()
@@ -313,8 +314,8 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.mapView.removeGestureRecognizer(addPointLongPressGesture)
     }
     func cancelLineRestr() {
-        self.mapView.removeOverlays([self.appDelegate.user.linesAdded.last!])
-        self.appDelegate.user.linesAdded.removeLast()
+        self.mapView.removeOverlays([geodesic!])
+        self.mapView.removeAnnotation(lineBeginning)
         self.navigationController?.popViewController(animated: true)
         self.mapView.removeGestureRecognizer(addLinesLongPressGesture)
         self.lineOfPoints = []
@@ -366,8 +367,9 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         lineOfPoints.append(converted)
         print(mapView.annotations.count)
         if (gesture.state == .ended && mapView.annotations.count == 1) {
-            let annotation = MapMarker(coordinate: lineOfPoints[0])
-            mapView.addAnnotation(annotation)
+            lineBeginning = MapMarker(coordinate: lineOfPoints[0])
+            lineBeginning.color = "marker_black"
+            mapView.addAnnotation(lineBeginning)
         }
         if (lineOfPoints.count == 1) {
             self.mapView.isScrollEnabled = false
@@ -401,6 +403,10 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.mapView.isZoomEnabled = true
         self.mapView.isRotateEnabled = true
         self.mapView.removeGestureRecognizer(addLinesLongPressGesture)
+        if (lineBeginning != nil) {
+            self.mapView.removeAnnotation(lineBeginning)
+        }
+        lineBeginning = nil
         self.lineOfPoints = []
         self.regionRadius = 1400
         self.centerMapOnLocation(location: CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude))

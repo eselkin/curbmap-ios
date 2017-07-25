@@ -10,6 +10,9 @@
 		23FB03CB858F69ED06ABB2DC /* Pods_curbmapTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D214739B858942746662527 /* Pods_curbmapTests.framework */; };
 		65F78D50A9E372E13C622914 /* Pods_curbmap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2A75C6E604A0825335F458 /* Pods_curbmap.framework */; };
 		85B124EF222025AFABCF5A9E /* Pods_curbmapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FF7AC1EB445C283340D426 /* Pods_curbmapUITests.framework */; };
+		D513BB2E1F26D7530003A9D0 /* TVCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D513BB2D1F26D7530003A9D0 /* TVCSettings.swift */; };
+		D519733B1F26AA6100543754 /* LoggedInTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51973391F26AA6100543754 /* LoggedInTableViewCell.swift */; };
+		D519733C1F26AA6100543754 /* LoggedInTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D519733A1F26AA6100543754 /* LoggedInTableViewCell.xib */; };
 		D54D97781F21430900E0EB42 /* TVDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D97771F21430900E0EB42 /* TVDays.swift */; };
 		D54D977A1F21630000E0EB42 /* TVWeeks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D97791F21630000E0EB42 /* TVWeeks.swift */; };
 		D54D977C1F21782300E0EB42 /* ViewControllerRestrDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D977B1F21782300E0EB42 /* ViewControllerRestrDetail.swift */; };
@@ -61,6 +64,9 @@
 		62FF7AC1EB445C283340D426 /* Pods_curbmapUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_curbmapUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B35FEBD6364E35C460C286C /* Pods-curbmapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-curbmapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-curbmapTests/Pods-curbmapTests.release.xcconfig"; sourceTree = "<group>"; };
 		C7ED08FC3EEEE0DC7DA4B196 /* Pods-curbmap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-curbmap.release.xcconfig"; path = "Pods/Target Support Files/Pods-curbmap/Pods-curbmap.release.xcconfig"; sourceTree = "<group>"; };
+		D513BB2D1F26D7530003A9D0 /* TVCSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVCSettings.swift; path = Login/TVCSettings.swift; sourceTree = "<group>"; };
+		D51973391F26AA6100543754 /* LoggedInTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggedInTableViewCell.swift; path = Login/LoggedInTableViewCell.swift; sourceTree = "<group>"; };
+		D519733A1F26AA6100543754 /* LoggedInTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoggedInTableViewCell.xib; path = Login/LoggedInTableViewCell.xib; sourceTree = "<group>"; };
 		D54D97771F21430900E0EB42 /* TVDays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVDays.swift; path = Restriction/TVDays.swift; sourceTree = "<group>"; };
 		D54D97791F21630000E0EB42 /* TVWeeks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVWeeks.swift; path = Restriction/TVWeeks.swift; sourceTree = "<group>"; };
 		D54D977B1F21782300E0EB42 /* ViewControllerRestrDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerRestrDetail.swift; path = Restriction/ViewControllerRestrDetail.swift; sourceTree = "<group>"; };
@@ -146,6 +152,9 @@
 			isa = PBXGroup;
 			children = (
 				D56E5FEE1F1C2EF30081A202 /* ViewControllerLogin.swift */,
+				D51973391F26AA6100543754 /* LoggedInTableViewCell.swift */,
+				D519733A1F26AA6100543754 /* LoggedInTableViewCell.xib */,
+				D513BB2D1F26D7530003A9D0 /* TVCSettings.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -369,6 +378,7 @@
 			files = (
 				D5D906FB1F19447B000EC8C9 /* LaunchScreen.storyboard in Resources */,
 				D5D906F81F19447B000EC8C9 /* Assets.xcassets in Resources */,
+				D519733C1F26AA6100543754 /* LoggedInTableViewCell.xib in Resources */,
 				D5D906F61F19447B000EC8C9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -535,11 +545,13 @@
 				D56E5FEF1F1C2EF30081A202 /* ViewControllerLogin.swift in Sources */,
 				D57C03641F19754F007840F6 /* CurbmapNavigation.swift in Sources */,
 				D57DAAC61F1E925B005EAF6C /* TableViewControllerAddRestriction.swift in Sources */,
+				D513BB2E1F26D7530003A9D0 /* TVCSettings.swift in Sources */,
 				D5D907241F195D49000EC8C9 /* MapMarker.swift in Sources */,
 				D54D977E1F217C2100E0EB42 /* TVMonths.swift in Sources */,
 				D54D977A1F21630000E0EB42 /* TVWeeks.swift in Sources */,
 				D57DAAC41F1E925B005EAF6C /* Restriction.swift in Sources */,
 				D54D97781F21430900E0EB42 /* TVDays.swift in Sources */,
+				D519733B1F26AA6100543754 /* LoggedInTableViewCell.swift in Sources */,
 				D5D906F31F19447B000EC8C9 /* ViewController.swift in Sources */,
 				D57DAAC71F1E925B005EAF6C /* ViewControllerRestrEditor.swift in Sources */,
 				D5D907221F195AE0000EC8C9 /* CurbmapPolyLine.swift in Sources */,

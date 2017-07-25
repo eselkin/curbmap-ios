@@ -8,11 +8,13 @@
 
 import Foundation
 import Alamofire
+import KeychainAccess
 
 class User {
+    let keychain = Keychain(service: "com.curbmap.keys")
     var username: String
     var password: String
-    var loggedIn: Bool
+    var loggedIn: Bool = false
     var remember: Bool = false
     var session: String
     var score: Int64
@@ -91,6 +93,33 @@ class User {
         print(full_dictionary)
         if (full_dictionary["success"] as! Bool == true) {
             
+        }
+    }
+    
+    func logout(callback: @escaping ()->Void) -> Void {
+        print("in logout")
+        let headers = [
+            "session": self.get_session()
+        ]
+        //
+        Alamofire.request("https://curbmap.com/logout", headers: headers).responseJSON { response in
+            print("x")
+            print(response)
+            if var json = response.result.value as? [String: Bool] {
+                print(json)
+                if (json["success"] == true) {
+                    print("succes")
+                    self.loggedIn = false
+                    self.set_badge(badge: "")
+                    self.set_username(username: "curbmaptest")
+                    self.set_session(session: "x")
+                    self.set_score(score: 0)
+                    self.set_password(password: "")
+                    self.set_remember(remember: false)
+                    try? self.keychain.removeAll()
+                    callback()
+                }
+            }
         }
     }
     
