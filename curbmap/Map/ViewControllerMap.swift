@@ -243,7 +243,6 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         scrollView.frame = view.frame
         var displaywidth = Int((view.frame.width))
         var displayheight = Int((view.frame.height))
-        print(displayheight, displaywidth)
         if ((!portrait && displaywidth < displayheight) || (portrait && displayheight < displaywidth)) {
             displaywidth = Int((view.frame.height))
             displayheight = Int((view.frame.width))
@@ -324,7 +323,6 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
 
     }
     func donePoint(r: [Restriction]) {
-        print("REALLY DONE")
         let annotation = MapMarker(coordinate: addingPoint!)
         self.appDelegate.user.pointsAdded.append(annotation)
         annotation.restrictions = r
@@ -335,7 +333,6 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
     }
     
     func doneLine(r: [Restriction]) {
-        print ("Done with line")
         geodesic?.restrictions = r
         appDelegate.user.linesAdded.append(geodesic!)
         navigationController?.popViewController(animated: true)
@@ -355,7 +352,6 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         }else{
             annotationView?.annotation = annotation
         }
-        print(annotation)
         if (annotation is MapMarker) {
             annotationView?.image = UIImage(named: (annotation as! MapMarker).color)
         }
@@ -365,7 +361,6 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         let point = gesture.location(in: self.mapView)
         let converted = self.mapView.convert(point, toCoordinateFrom: self.mapView)
         lineOfPoints.append(converted)
-        print(mapView.annotations.count)
         if (gesture.state == .ended && mapView.annotations.count == 1) {
             lineBeginning = MapMarker(coordinate: lineOfPoints[0])
             lineBeginning.color = "marker_black"
@@ -381,7 +376,6 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 if (geodesic != nil) {
                     mapView.remove(geodesic!)
                 }
-                print(lineOfPoints)
                 geodesic = CurbmapPolyLine(coordinates: &lineOfPoints, count: lineOfPoints.count)
                 mapView.addOverlays([geodesic!])
             }
@@ -420,7 +414,6 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         self.toolbar.setItems([bbi_map!, bbi_addLine_cancel!], animated: true)
         if let gRec = self.mapView.gestureRecognizers {
             tempGestureRecognizers = gRec
-            print(tempGestureRecognizers)
         }
         self.regionRadius = 130
         self.centerMapOnLocation(location: CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude))

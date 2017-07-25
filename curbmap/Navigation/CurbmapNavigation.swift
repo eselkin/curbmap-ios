@@ -50,6 +50,9 @@ class CurbmapNavigation: UITableViewController{
         } else if (indexPath.section == 0 && appDelegate.user.isLoggedIn()) {
             let VCSettings = storyboard?.instantiateViewController(withIdentifier: "ViewControllerSettings")
             self.navigationController?.pushViewController(VCSettings!, animated: true)
+        } else if (indexPath.section == 1){
+            let TVCAbout = storyboard?.instantiateViewController(withIdentifier: "TableViewControllerAbout")
+            self.navigationController?.pushViewController(TVCAbout!, animated: true)
         }
     }
     

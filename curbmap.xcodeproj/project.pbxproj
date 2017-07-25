@@ -11,6 +11,7 @@
 		65F78D50A9E372E13C622914 /* Pods_curbmap.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2A75C6E604A0825335F458 /* Pods_curbmap.framework */; };
 		85B124EF222025AFABCF5A9E /* Pods_curbmapUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 62FF7AC1EB445C283340D426 /* Pods_curbmapUITests.framework */; };
 		D513BB2E1F26D7530003A9D0 /* TVCSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = D513BB2D1F26D7530003A9D0 /* TVCSettings.swift */; };
+		D513BB311F2720E80003A9D0 /* TableViewControllerAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D513BB301F2720E80003A9D0 /* TableViewControllerAbout.swift */; };
 		D519733B1F26AA6100543754 /* LoggedInTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51973391F26AA6100543754 /* LoggedInTableViewCell.swift */; };
 		D519733C1F26AA6100543754 /* LoggedInTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D519733A1F26AA6100543754 /* LoggedInTableViewCell.xib */; };
 		D54D97781F21430900E0EB42 /* TVDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D97771F21430900E0EB42 /* TVDays.swift */; };
@@ -65,6 +66,7 @@
 		7B35FEBD6364E35C460C286C /* Pods-curbmapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-curbmapTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-curbmapTests/Pods-curbmapTests.release.xcconfig"; sourceTree = "<group>"; };
 		C7ED08FC3EEEE0DC7DA4B196 /* Pods-curbmap.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-curbmap.release.xcconfig"; path = "Pods/Target Support Files/Pods-curbmap/Pods-curbmap.release.xcconfig"; sourceTree = "<group>"; };
 		D513BB2D1F26D7530003A9D0 /* TVCSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVCSettings.swift; path = Login/TVCSettings.swift; sourceTree = "<group>"; };
+		D513BB301F2720E80003A9D0 /* TableViewControllerAbout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewControllerAbout.swift; path = About/TableViewControllerAbout.swift; sourceTree = "<group>"; };
 		D51973391F26AA6100543754 /* LoggedInTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggedInTableViewCell.swift; path = Login/LoggedInTableViewCell.swift; sourceTree = "<group>"; };
 		D519733A1F26AA6100543754 /* LoggedInTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoggedInTableViewCell.xib; path = Login/LoggedInTableViewCell.xib; sourceTree = "<group>"; };
 		D54D97771F21430900E0EB42 /* TVDays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVDays.swift; path = Restriction/TVDays.swift; sourceTree = "<group>"; };
@@ -148,6 +150,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D513BB2F1F2720C30003A9D0 /* About */ = {
+			isa = PBXGroup;
+			children = (
+				D513BB301F2720E80003A9D0 /* TableViewControllerAbout.swift */,
+			);
+			name = About;
+			sourceTree = "<group>";
+		};
 		D56E5FEB1F1C2DC00081A202 /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +217,7 @@
 		D5D906EF1F19447B000EC8C9 /* curbmap */ = {
 			isa = PBXGroup;
 			children = (
+				D513BB2F1F2720C30003A9D0 /* About */,
 				D57DAABB1F1E9236005EAF6C /* Restriction */,
 				D56E5FEB1F1C2DC00081A202 /* Login */,
 				D57C03651F197575007840F6 /* Navigation */,
@@ -549,6 +560,7 @@
 				D5D907241F195D49000EC8C9 /* MapMarker.swift in Sources */,
 				D54D977E1F217C2100E0EB42 /* TVMonths.swift in Sources */,
 				D54D977A1F21630000E0EB42 /* TVWeeks.swift in Sources */,
+				D513BB311F2720E80003A9D0 /* TableViewControllerAbout.swift in Sources */,
 				D57DAAC41F1E925B005EAF6C /* Restriction.swift in Sources */,
 				D54D97781F21430900E0EB42 /* TVDays.swift in Sources */,
 				D519733B1F26AA6100543754 /* LoggedInTableViewCell.swift in Sources */,
