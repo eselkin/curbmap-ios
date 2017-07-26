@@ -43,12 +43,23 @@ class TVCSettings: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section == 2) {
+        if (indexPath.section == 0) {
             if (indexPath.row == 0) {
-                print("here")
+                let vCChangePass = storyboard?.instantiateViewController(withIdentifier: "VCChangePass")
+                self.navigationController?.pushViewController(vCChangePass!, animated: true)
+            } else if (indexPath.row == 1) {
+                appDelegate.user.resetPassword(callback: completedReset)
+            }
+        } else if (indexPath.section == 2) {
+            if (indexPath.row == 0) {
                 appDelegate.user.logout(callback: completedLogout)
             }
         }
+    }
+    
+    
+    func completedReset() -> Void {
+        
     }
     
     func completedLogout() -> Void {

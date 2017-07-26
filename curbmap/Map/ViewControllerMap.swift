@@ -66,7 +66,7 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         Alamofire.request("https://curbmap.com:50003/areaPolygon", parameters: parameters, headers: headers).responseJSON { response in
             self.mapView.removeOverlays(self.linesToDraw)
             self.linesToDraw = []
-            if var json = response.result.value as? [[String: Any]] {
+            if let json = response.result.value as? [[String: Any]] {
                 if (json.count == 0) {
                     return
                 }

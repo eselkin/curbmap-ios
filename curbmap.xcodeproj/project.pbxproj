@@ -14,6 +14,7 @@
 		D513BB311F2720E80003A9D0 /* TableViewControllerAbout.swift in Sources */ = {isa = PBXBuildFile; fileRef = D513BB301F2720E80003A9D0 /* TableViewControllerAbout.swift */; };
 		D519733B1F26AA6100543754 /* LoggedInTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51973391F26AA6100543754 /* LoggedInTableViewCell.swift */; };
 		D519733C1F26AA6100543754 /* LoggedInTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D519733A1F26AA6100543754 /* LoggedInTableViewCell.xib */; };
+		D544B69E1F27F5D400C002D7 /* VCChangePass.swift in Sources */ = {isa = PBXBuildFile; fileRef = D544B69D1F27F5D400C002D7 /* VCChangePass.swift */; };
 		D54D97781F21430900E0EB42 /* TVDays.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D97771F21430900E0EB42 /* TVDays.swift */; };
 		D54D977A1F21630000E0EB42 /* TVWeeks.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D97791F21630000E0EB42 /* TVWeeks.swift */; };
 		D54D977C1F21782300E0EB42 /* ViewControllerRestrDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54D977B1F21782300E0EB42 /* ViewControllerRestrDetail.swift */; };
@@ -25,6 +26,7 @@
 		D57DAAC51F1E925B005EAF6C /* RestrPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57DAAC01F1E925B005EAF6C /* RestrPicker.swift */; };
 		D57DAAC61F1E925B005EAF6C /* TableViewControllerAddRestriction.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57DAAC11F1E925B005EAF6C /* TableViewControllerAddRestriction.swift */; };
 		D57DAAC71F1E925B005EAF6C /* ViewControllerRestrEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D57DAAC21F1E925B005EAF6C /* ViewControllerRestrEditor.swift */; };
+		D594747B1F28155A00D3E277 /* ViewControllerAboutCurbmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = D594747A1F28155A00D3E277 /* ViewControllerAboutCurbmap.swift */; };
 		D5D906F11F19447B000EC8C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D906F01F19447B000EC8C9 /* AppDelegate.swift */; };
 		D5D906F31F19447B000EC8C9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D906F21F19447B000EC8C9 /* ViewController.swift */; };
 		D5D906F61F19447B000EC8C9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5D906F41F19447B000EC8C9 /* Main.storyboard */; };
@@ -69,6 +71,7 @@
 		D513BB301F2720E80003A9D0 /* TableViewControllerAbout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewControllerAbout.swift; path = About/TableViewControllerAbout.swift; sourceTree = "<group>"; };
 		D51973391F26AA6100543754 /* LoggedInTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoggedInTableViewCell.swift; path = Login/LoggedInTableViewCell.swift; sourceTree = "<group>"; };
 		D519733A1F26AA6100543754 /* LoggedInTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoggedInTableViewCell.xib; path = Login/LoggedInTableViewCell.xib; sourceTree = "<group>"; };
+		D544B69D1F27F5D400C002D7 /* VCChangePass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VCChangePass.swift; path = Login/VCChangePass.swift; sourceTree = "<group>"; };
 		D54D97771F21430900E0EB42 /* TVDays.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVDays.swift; path = Restriction/TVDays.swift; sourceTree = "<group>"; };
 		D54D97791F21630000E0EB42 /* TVWeeks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TVWeeks.swift; path = Restriction/TVWeeks.swift; sourceTree = "<group>"; };
 		D54D977B1F21782300E0EB42 /* ViewControllerRestrDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerRestrDetail.swift; path = Restriction/ViewControllerRestrDetail.swift; sourceTree = "<group>"; };
@@ -80,6 +83,7 @@
 		D57DAAC01F1E925B005EAF6C /* RestrPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RestrPicker.swift; path = Restriction/RestrPicker.swift; sourceTree = "<group>"; };
 		D57DAAC11F1E925B005EAF6C /* TableViewControllerAddRestriction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TableViewControllerAddRestriction.swift; path = Restriction/TableViewControllerAddRestriction.swift; sourceTree = "<group>"; };
 		D57DAAC21F1E925B005EAF6C /* ViewControllerRestrEditor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerRestrEditor.swift; path = Restriction/ViewControllerRestrEditor.swift; sourceTree = "<group>"; };
+		D594747A1F28155A00D3E277 /* ViewControllerAboutCurbmap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewControllerAboutCurbmap.swift; path = About/ViewControllerAboutCurbmap.swift; sourceTree = "<group>"; };
 		D5D906ED1F19447B000EC8C9 /* curbmap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = curbmap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5D906F01F19447B000EC8C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5D906F21F19447B000EC8C9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +158,7 @@
 			isa = PBXGroup;
 			children = (
 				D513BB301F2720E80003A9D0 /* TableViewControllerAbout.swift */,
+				D594747A1F28155A00D3E277 /* ViewControllerAboutCurbmap.swift */,
 			);
 			name = About;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 				D51973391F26AA6100543754 /* LoggedInTableViewCell.swift */,
 				D519733A1F26AA6100543754 /* LoggedInTableViewCell.xib */,
 				D513BB2D1F26D7530003A9D0 /* TVCSettings.swift */,
+				D544B69D1F27F5D400C002D7 /* VCChangePass.swift */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -565,6 +571,8 @@
 				D54D97781F21430900E0EB42 /* TVDays.swift in Sources */,
 				D519733B1F26AA6100543754 /* LoggedInTableViewCell.swift in Sources */,
 				D5D906F31F19447B000EC8C9 /* ViewController.swift in Sources */,
+				D594747B1F28155A00D3E277 /* ViewControllerAboutCurbmap.swift in Sources */,
+				D544B69E1F27F5D400C002D7 /* VCChangePass.swift in Sources */,
 				D57DAAC71F1E925B005EAF6C /* ViewControllerRestrEditor.swift in Sources */,
 				D5D907221F195AE0000EC8C9 /* CurbmapPolyLine.swift in Sources */,
 				D5D906F11F19447B000EC8C9 /* AppDelegate.swift in Sources */,

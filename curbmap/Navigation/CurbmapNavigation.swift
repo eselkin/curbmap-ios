@@ -72,7 +72,6 @@ class CurbmapNavigation: UITableViewController{
             } else {
                 return "Get the most out of the app"
             }
-            return "go to the map..."
         } else if (section == 1) {
             return "got questions about us?"
         } else {
@@ -100,7 +99,7 @@ class CurbmapNavigation: UITableViewController{
             if (indexPath.section == 0) {
                 print(indexPath.section)
                 tableView.register(UINib(nibName: "LoggedInTableViewCell", bundle: nil), forCellReuseIdentifier: "LoggedInCell")
-                var tempcell = tableView.dequeueReusableCell(withIdentifier: "LoggedInCell", for: indexPath) as? LoggedInTableViewCell
+                let tempcell = tableView.dequeueReusableCell(withIdentifier: "LoggedInCell", for: indexPath) as? LoggedInTableViewCell
                 print(appDelegate.user.get_badge())
                 tempcell?.imageView?.image = UIImage(named: "badge_"+appDelegate.user.get_badge())
                 tempcell?.usernameLabel.text = appDelegate.user.get_username()

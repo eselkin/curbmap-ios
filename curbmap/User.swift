@@ -122,6 +122,34 @@ class User {
             }
         }
     }
+    func changePassword(old_pass: String, new_pass: String, callback: @escaping (Int)->Void) -> Void {
+        print("changing password")
+        let headers = [
+            "session": self.get_session()
+        ]
+        let parameters = [
+            "username": self.get_username(),
+            "password": old_pass,
+            "newpassword": new_pass
+        ]
+        Alamofire.request("https://curbmap.com/changepassword", method: .post, parameters: parameters, headers: headers).responseJSON { response in
+            if let json = response.result.value as? [String: Int] {
+                print(json)
+                callback(json["success"]!)
+            }
+        }
+    }
+    
+    func resetPassword(callback: @escaping ()->Void) -> Void {
+        print("resetting password")
+        let headers = [
+            "session": self.get_session()
+        ]
+        Alamofire.request("https://curbmap.com/resetpassword", method: .post, headers: headers).response { response in
+            print(response)
+            callback()
+        }
+    }
     
     func runDict(full_dictionary: [String: Any], callback: ()->Void) {
         self.set_badge(badge: full_dictionary["badge"] as! String)

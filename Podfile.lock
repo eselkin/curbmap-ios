@@ -1,15 +1,18 @@
 PODS:
   - Alamofire (4.5.0)
+  - EasyTipView (1.0.2)
   - KeychainAccess (3.0.2)
 
 DEPENDENCIES:
   - Alamofire (~> 4.4)
+  - EasyTipView (~> 1.0.2)
   - KeychainAccess
 
 SPEC CHECKSUMS:
   Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
+  EasyTipView: b93a19be981cc2221d6d7191d49872f547e0bebf
   KeychainAccess: a986406022dfc7c634c691ad3bec670cc6a32002
 
-PODFILE CHECKSUM: 55fb3a217cb851a8fd06ac2198936b03b427675e
+PODFILE CHECKSUM: ccd08134e24b2e667f312ab4c2ac7b7aec9cce54
 
 COCOAPODS: 1.2.1

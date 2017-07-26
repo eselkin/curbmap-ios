@@ -29,6 +29,13 @@ class TableViewControllerAbout: UITableViewController {
         // #warning Incomplete implementation, return the number of rows
         return 3
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if (indexPath.row == 0) {
+            let AboutCurbmap = storyboard?.instantiateViewController(withIdentifier: "AboutCurbmap")
+            self.navigationController?.pushViewController(AboutCurbmap!, animated: true)
+        }
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "AboutCell", for: indexPath)
