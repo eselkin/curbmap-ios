@@ -44,6 +44,7 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
     var lineBeginning: MapMarker!
     var pointsToDraw: [MapMarker] = []
     var addingPoint: CLLocationCoordinate2D?
+    var lastLocation: CLLocation?
     lazy var geocoder = CLGeocoder()
     
     func centerMapOnLocation(location: CLLocation) {
@@ -51,6 +52,17 @@ class ViewControllerMap: UIViewController, CLLocationManagerDelegate, MKMapViewD
         mapView.setRegion(coordinateRegion, animated: true)
     }
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        let mapCenterLocation = CLLocation(latitude: mapView.centerCoordinate.latitude, longitude: mapView.centerCoordinate.longitude)
+        if (lastLocation != nil) {
+            if ((mapCenterLocation).distance(from: lastLocation!) < 7) {
+                return
+            } else {
+                lastLocation = mapCenterLocation
+                // do nothing
+            }
+        } else {
+            lastLocation = mapCenterLocation
+        }
         let topLeft = mapView.convert(CGPoint.zero, toCoordinateFrom: mapView)
         let bottomRight = mapView.convert(CGPoint(x: mapView.frame.width, y: mapView.frame.height), toCoordinateFrom: mapView)
         let headers = [
